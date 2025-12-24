@@ -1,5 +1,5 @@
-# SAM2600
-## A software speech synthesizer for the Atari 2600. Make your Atari 2600 talk! Sing! Say Tagalog words! Say rude words!
+# SAM2600 #
+## A software speech synthesizer for the Atari 2600. Make your Atari 2600 talk! Sing! Say Tagalog words! Say rude words! ##
 
 Add voice to your own games and relive the glory days when computer speech had a charming personality and bounded intelligibility.
 
@@ -7,7 +7,7 @@ Add voice to your own games and relive the glory days when computer speech had a
 
 See it in action on [YouTube](https://youtu.be/abL_H784Vck). Source code at https://github.com/TSFBCE24RhythmHeaveners/SAM2600
 
-## A Brief History of Speech Synthesis
+## A Brief History of Speech Synthesis ##
 While mechanical speech synthesis dates back to the [18th century](https://en.wikipedia.org/wiki/Wolfgang_von_Kempelen%27s_speaking_machine), the first successful attempt based on electronics was ['An Electrical Analogue of the Vocal Organs'](https://www.nature.com/articles/110311a0) by John Q. Stewart in 1922. It was capable of saying such interesting things as **mama, anna, wow-wow, and yi-yi**.
 
 ![Stewart Circuit](img/stewart.png)
@@ -18,7 +18,7 @@ These resonance frequencies are known as **formants**. The human vocal tract has
 
 The overall pitch or fundamental frequency of speech comes from oscillations of the vocal cords: the buzzer in this model. Expressive speech depends a lot on correct modulation of pitch. This fundamental frequency is typically known as **f0**.
 
-### The Vocoder
+### The Vocoder ###
 The first device capable of general speech was introduced to the world in 1939. The Bell Telephone Laboratory's [Voder](http://www.whatisthevoder.com/) imitated the human vocal tract and when played by a trained operator could produce recognizable, [albeit creepy](https://www.youtube.com/watch?v=5hyI_dM5cGo), speech.
 
 ![Voder Schematic](img/voder3.jpg)
@@ -31,13 +31,13 @@ The Voder performed speech synthesis by emulating some of the behavior of the hu
 
 If a keyboard and pedals could be used to produce speech then so could a low bitrate digital signal. [Homer Dudley](https://www.cryptomuseum.com/crypto/usa/sigsaly/pat/US3470323.pdf), Voders creator, with the help of Alan Turing went on to contribute to [SIGSALY](https://en.wikipedia.org/wiki/SIGSALY), a compressed and encrypted speech system that successfully secured communications between the likes of Churchill and Roosevelt during the war.
 
-### Daisy
+### Daisy ###
 In 1961, physicist John Larry Kelly, Jr used an IBM 704 computer sing the song "[Daisy](https://www.youtube.com/watch?time_continue=5&v=41U78QP8nBk&feature=emb_logo)". This demo inspired one of the greatest moments in all of cinema when Arthur C. Clarke, who was visiting the lab at the time, decided that a certain HAL 9000 would serenade Dave Bowman whilst being lobotomized.
 
 ![Dave](img/2001-daisy-daisy.jpg)
 *"My instructor was Mr. Langley, and he taught me to sing a song. If you'd like to hear it I can sing it for you."*
 
-### Talking Chips
+### Talking Chips ###
 
 By the 70s companies like Votrax were producing discrete logic speech synthesizers and text-to-speech algorithms. The United States Naval Research Laboratory, or "NRL" text-to-phoneme algorithm was developed by a collaboration between Votrax and the NRL in 1973. "[Automatic Translation of English Text to Phonetics by Means of Letter-to-Sound Rules](https://apps.dtic.mil/dtic/tr/fulltext/u2/a021929.pdf)" allowed translation from arbitrary text to phonemes, the smallest units of sound in a word that makes a difference in its pronunciation and meaning. Phonetic alphabets such as [ARPABET](https://en.wikipedia.org/wiki/ARPABET) are used as a common representation of speech to program these devices.
 
@@ -47,7 +47,7 @@ The Votrax SC-01, famous for its use in the arcade games like Gorf, Wizard of Wo
 
 Chips like the SC-01 (Alien Group Voice Box) and the GI-SPO256 (Intellivoice) started to appear in peripherals for the growing personal computer market. The stage was set for a cheaper, more versatile software alternative.
 
-### Software Automatic Mouth (SAM)
+### Software Automatic Mouth (SAM) ###
 
 In 1982 Don't Ask Software (now SoftVoice, Inc.) released  **S.A.M. The Software Automatic Mouth**, a voice synthesis program for Atari, Apple and Commodore computers written by Mark Barton. At $59.95 ([at least for the Atari version](https://www.youtube.com/watch?v=k7nqixe3WrQ)) it was much cheaper than the hardware alternatives. It included a text-to-phoneme converter and a phoneme-to-speech routine for the final output.
 
@@ -55,7 +55,7 @@ SAM used a rule based translation of text to speech that owes a lot to the NRL w
 
 [To help introduce the Macintosh in 1984](https://youtu.be/2B-XwPjn9YY?t=193) Steve Jobs turned to Mark Barton and Andy Hertzfeld to bring SAM to a new audience as MacinTalk: https://www.folklore.org/StoryView.py?project=Macintosh&story=Intro_Demo.txt
 
-## How SAM2600 Works
+## How SAM2600 Works ##
 
 After 38 years I have finally got around to answering a question I pondered to myself in 1982 when I first heard SAM talk on my Atari 800: *Could SAM run on something as constrained as an Atari 2600?*
 
@@ -67,7 +67,7 @@ Internally SAM has a three stage pipeline: text to phoneme, phoneme to allophone
 
 The first two stages are rules based and have a non-trivial code footprint. If you are trying to put a game onto a 4k cartridge there isn't a whole lot of room. But the allophone to audio stage looks a little more manageable.
 
-### Fitting into an Atari 2600
+### Fitting into an Atari 2600 ###
 
 SAM2600 separates the complex rule based parts from the allophone to audio stage. The code that runs on the 2600 is analogous to playing the Voder, a compressed stream of phoneme/allophone/timing data. The complex stuff is moved to a web based authoring tool were tons on RAM and compute make it easy to create and share speech.
 
@@ -111,7 +111,7 @@ The speech engine uses 33 bytes of RAM and 1.2k of ROM leaving up to 2.8k for sp
 
 The examples use ~.5k to produce an animation that maps phonemes to mouth shapes. These mappings are far from perfect but the effect seems to work fairly well. Our brains are pretty good at filling in the blanks.
 
-## The Future
+## The Future ##
 
 In the decades since SAM was created speech synthesis has evolved tremendously. Progress in the last couple of years has been greatly accelerated by advances in deep learning: rule based approaches and heuristics have given way to huge networks and eerily accurate results.
 
