@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include "debug.h"
 #include "sam.h"
 #include "render.h"
@@ -63,6 +64,96 @@ void SetThroat(unsigned char _throat) {throat = _throat;}
 void EnableSingmode() {singmode = 1;}
 char* GetBuffer(){return buffer;}
 int GetBufferLength(){return bufferpos;}
+
+/*
+  New helper: save the produced buffer as a standard WAV file so the audio can
+  be downloaded/shared. By default the SAM implementation in this repo produces
+  8-bit unsigned PCM samples (mono) at 22050 Hz and writes them out unchanged.
+
+  Usage:
+    1. Run the SAM pipeline (SAMMain, PrepareOutput / Render etc.) so `buffer`
+       and `bufferpos` are populated.
+    2. Call SaveBufferToWav("out.wav"). The function returns 1 on success, 0 on error.
+    3. The resulting out.wav file can be served/downloaded normally.
+
+  NOTE: If your project exposes an HTTP endpoint or GUI, call SaveBufferToWav()
+  and return/send the file to the user. If you prefer raw PCM, SaveBufferToRaw
+  is also provided below.
+*/
+
+static int write_u32_le(FILE *f, uint32_t v)
+{
+    uint8_t b[4];
+    b[0] = v & 0xFF;
+    b[1] = (v >> 8) & 0xFF;
+    b[2] = (v >> 16) & 0xFF;
+    b[3] = (v >> 24) & 0xFF;
+    return fwrite(b, 1, 4, f) == 4;
+}
+
+static int write_u16_le(FILE *f, uint16_t v)
+{
+    uint8_t b[2];
+    b[0] = v & 0xFF;
+    b[1] = (v >> 8) & 0xFF;
+    return fwrite(b, 1, 2, f) == 2;
+}
+
+/* Save the generated buffer as a WAV file (8-bit unsigned PCM, mono, 22050 Hz).
+   Returns 1 on success, 0 on failure. */
+int SaveBufferToWav(const char *filename)
+{
+    if (!buffer || bufferpos <= 0) return 0;
+
+    FILE *f = fopen(filename, "wb");
+    if (!f) return 0;
+
+    const uint16_t audioFormat = 1; // PCM
+    const uint16_t numChannels = 1;
+    const uint32_t sampleRate = 22050;
+    const uint16_t bitsPerSample = 8;
+    const uint16_t blockAlign = numChannels * (bitsPerSample / 8);
+    const uint32_t byteRate = sampleRate * blockAlign;
+    const uint32_t subchunk2Size = (uint32_t)bufferpos;
+    const uint32_t chunkSize = 36 + subchunk2Size;
+
+    // RIFF header
+    if (fwrite("RIFF", 1, 4, f) != 4) { fclose(f); return 0; }
+    if (!write_u32_le(f, chunkSize)) { fclose(f); return 0; }
+    if (fwrite("WAVE", 1, 4, f) != 4) { fclose(f); return 0; }
+
+    // fmt subchunk
+    if (fwrite("fmt ", 1, 4, f) != 4) { fclose(f); return 0; }
+    if (!write_u32_le(f, 16)) { fclose(f); return 0; } // subchunk1Size for PCM
+    if (!write_u16_le(f, audioFormat)) { fclose(f); return 0; }
+    if (!write_u16_le(f, numChannels)) { fclose(f); return 0; }
+    if (!write_u32_le(f, sampleRate)) { fclose(f); return 0; }
+    if (!write_u32_le(f, byteRate)) { fclose(f); return 0; }
+    if (!write_u16_le(f, blockAlign)) { fclose(f); return 0; }
+    if (!write_u16_le(f, bitsPerSample)) { fclose(f); return 0; }
+
+    // data subchunk
+    if (fwrite("data", 1, 4, f) != 4) { fclose(f); return 0; }
+    if (!write_u32_le(f, subchunk2Size)) { fclose(f); return 0; }
+
+    // write audio data
+    size_t written = fwrite((const void*)buffer, 1, bufferpos, f);
+    fclose(f);
+
+    return written == (size_t)bufferpos;
+}
+
+/* Optionally save raw PCM bytes (no header). Useful if you want to post-process
+   into another container or stream raw samples. Returns 1 on success. */
+int SaveBufferToRaw(const char *filename)
+{
+    if (!buffer || bufferpos <= 0) return 0;
+    FILE *f = fopen(filename, "wb");
+    if (!f) return 0;
+    size_t written = fwrite((const void*)buffer, 1, bufferpos, f);
+    fclose(f);
+    return written == (size_t)bufferpos;
+}
 
 void Init();
 int Parser1();
