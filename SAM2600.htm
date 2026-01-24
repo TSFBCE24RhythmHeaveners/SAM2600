@@ -738,7 +738,7 @@ function load()
     update_sliders();
 
     // show some examples
-    var ex = [16];
+    var ex = [];
     for (var n in _examples)
         ex.push("<b>" + n + "</b>");
     _q("#examples").innerHTML = ex.join("");
@@ -1135,7 +1135,7 @@ function preset(n)
 }
 
 var _examples = {
-    "hello":{
+   "hello":{
         p:[
         "/HEH3LOW8W, MAY4 NEHM IHZ SAE5M. AY3 AEM AH SAA3FTWEHR SPIY4CH SIH4NTHIXSAY7ZER - ",
         "FOHR DHIY AHAHTAA4RIY TWEHNTIY SIHKS /HAH5NDRD KAANSOW5L.Q"
@@ -1303,20 +1303,6 @@ var _examples = {
         "And however difficult life may seem,",
         "there is always something you can do and succeed at.",
         ]
-    },
-    "north wind": {
-        t:[
-        "The North Wind and the Sun were disputing which was the stronger, when a traveler came along wrapped in a warm cloak."
-        "They agreed that the one who first succeeded in making the traveler take his cloak off should be considered stronger than the other."
-        "Then the North Wind blew as hard as he could, but the more he blew the more closely did the traveler fold his cloak around him;"
-        "and at last the North Wind gave up the attempt. Then the Sun shined out warmly, and immediately the traveler took off his cloak."
-        "And so the North Wind was obliged to confess that the Sun was the stronger of the two.",
-        ]
-    },
-    "creator": {
-        p:[
-        "DHIHS RIYPAAZIHTAORIY IHZ MEYD BAY TIY4EH4SEH4FBIY4EH4LSIY4TUW4FOH4RR/HIHTHM/HIY5VEHNERZ.",
-        ]
     }
 };
 
@@ -1353,10 +1339,10 @@ function examples(n)
 <div id="menu_container" ></div>
 <p style="text-align:center;color:#AAA;font-weight:300">
     <span style="font-size:x-large;color:#333">SAM2600</span><br>
-    <a href="https://github.com/TSFBCE24RhythmHeaveners/SAM2600">Check the source</a><br/><br/>
+    <a href="https://github.com/rossumur/SAM2600">https://github.com/rossumur/SAM2600</a><br/><br/>
     <div id="examples" onclick='examples(event.target.innerText)'></div>
     <pre style="color:#888;padding-left:48px">
-<b>Vowels</b>
+<b>VOWELS</b>
 IY  feet
 IH  pin
 EH  beg
@@ -1365,26 +1351,21 @@ AA  pot
 AH  budget
 AO  talk
 OH  cone
-LX  tuğıź (Bashkir, L after a vowel)
 UH  book
 UX  loot
 ER  bird
-RX  herrlich (German, R after a vowel)
 AX  gallon
 IX  digit
+
+<b>DIPTHONGS</b>
 EY  made
 AY  high
 OY  boy
 AW  how
 OW  slow
 UW  crew
-UL  settle (= AXL)
-UM  astronomy (= AXM)
-UN  function (= ASN)
-YX  (diphthong ending)
-WX  (diphthong ending)
 
-<b>Consonants</b>
+<b>VOICED CONSONANTS</b>
 R   red
 L   allow
 W   away
@@ -1395,35 +1376,45 @@ N   man
 NX  song
 B   bad
 D   dog
-DX  pity (flapped T)
 G   again
-GX  gawa (Tagalog)
 J   judge
 Z   zoo
 ZH  pleasure
 V   seven
 DH  then
-S   sea
-SH  shore
+
+<b>UNVOICED CONSONANTS</b>
+S   Sam
+SH  fish
 F   fish
 TH  thin
 P   poke
 T   talk
 K   cake
-KX  kuha (Tagalog)
 CH  speech
 /H  ahead
-/X  loch (H before a non-front vowel or consonant)
-Q   uh-oh (glottal stop)
-*   nicht (German)
 
-<b>Punctuation</b>
+<b>SPECIAL PHONEMES</b>
+UL  settle (= AXL)
+UM  astronomy (= AXM)
+UN  function (= ASN)
+Q   kitt-en (glottal stop)
+
+<b>SAM INTERNAL</b>
+YX diphthong ending
+WX diphthong ending
+RX R after a vowel
+LX L after a vowel
+/X H before a non-front vowel or consonant
+DX "flap" as in pity
+
+<b>PUNCTUATION</b>
 -   short pause in the speech
 ,   pause double that of the hyphen
 .   pause and also causes the pitch to fall
 ?   pause and also causes the pitch to rise
 
-<b>Stress</b>
+<b>STRESS</b>
 1 = very emotional stress
 2 = very emphatic stress
 3 = rather strong stress
@@ -1487,12 +1478,17 @@ Q   uh-oh (glottal stop)
      </div>
 </main>
 </div>
-    
-<div style='float:right'>
-    <input style='float:right' type="button" value="Export WAV" onclick='export_wav()'/>
-    <pre contenteditable="true"  style='white-space: pre;' id="output"></pre>
-</div>
 
+<div style='float:right'>
+        <!-- NEW: Export to WAV button (does not remove any existing buttons) -->
+        <input style='float:right' type="button" value="Export WAV" onclick='export_wav()'/>
+</div>
+    <pre contenteditable="true"  style='white-space: pre;' id="output"></pre>
+
+<!--
+Now add the JS helpers (place somewhere inside the existing <script> ... </script> section
+— e.g. after show_atari_data() or near the other playback/save helpers).
+-->
 <script>
 // NEW: helper to convert PCM sample array to a WAV (16-bit little-endian PCM, mono)
 function pcmToWav(samples, sampleRate, numChannels = 1, bitsPerSample = 16) {
