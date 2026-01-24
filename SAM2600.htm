@@ -738,7 +738,7 @@ function load()
     update_sliders();
 
     // show some examples
-    var ex = [];
+    var ex = [16];
     for (var n in _examples)
         ex.push("<b>" + n + "</b>");
     _q("#examples").innerHTML = ex.join("");
@@ -1135,15 +1135,10 @@ function preset(n)
 }
 
 var _examples = {
-   "hello":{
+    "hello":{
         p:[
         "/HEH3LOW8W, MAY4 NEHM IHZ SAE5M. AY3 AEM AH SAA3FTWEHR SPIY4CH SIH4NTHIXSAY7ZER - ",
         "FOHR DHIY AHAHTAA4RIY TWEHNTIY SIHKS /HAH5NDRD KAANSOW5L.Q"
-        ]
-    },
-    "creator":{
-        p:[
-        "DHIHS RIYPAAZIHTAORIY IHZ MEYD BAY TIY4EH4SEH4FBIY4EH4LSIY4TUW4FOH4RR/HIHTHM/HIY5VEHNERZ.",
         ]
     },
     "gettysberg":{
@@ -1316,6 +1311,11 @@ var _examples = {
         "Then the North Wind blew as hard as he could, but the more he blew the more closely did the traveler fold his cloak around him;"
         "and at last the North Wind gave up the attempt. Then the Sun shined out warmly, and immediately the traveler took off his cloak."
         "And so the North Wind was obliged to confess that the Sun was the stronger of the two.",
+        ]
+    },
+    "creator":{
+        p:[
+        "DHIHS RIYPAAZIHTAORIY IHZ MEYD BAY TIY4EH4SEH4FBIY4EH4LSIY4TUW4FOH4RR/HIHTHM/HIY5VEHNERZ.",
         ]
     }
 };
