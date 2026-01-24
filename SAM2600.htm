@@ -1467,10 +1467,6 @@ Q   uh-oh (glottal stop)
 
             <div class='console'>
             Output sound data
-                <div style='float:right'>
-                    <!-- NEW: Export to WAV button (does not remove any existing buttons) -->
-                    <input style='float:right' type="button" value="Export WAV" onclick='export_wav()'/>
-                </div>
             <pre contenteditable="true"  style='white-space: pre;' id="output"></pre>
             </div>
     </div>
@@ -1478,11 +1474,10 @@ Q   uh-oh (glottal stop)
 </main>
 </div>
     
+<div style='float:right'>
+    <input style='float:right' type="button" value="Export WAV" onclick='export_wav()'/>
+</div>
 
-<!--
-Now add the JS helpers (place somewhere inside the existing <script> ... </script> section
-— e.g. after show_atari_data() or near the other playback/save helpers).
--->
 <script>
 // NEW: helper to convert PCM sample array to a WAV (16-bit little-endian PCM, mono)
 function pcmToWav(samples, sampleRate, numChannels = 1, bitsPerSample = 16) {
