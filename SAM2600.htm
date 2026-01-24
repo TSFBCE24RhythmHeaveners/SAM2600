@@ -1473,25 +1473,10 @@ Q   uh-oh (glottal stop)
      </div>
 </main>
 </div>
-<!--
-Drop the small HTML change into the "Output sound data" console block.
-Find the block that looks like this in SAM2600.htm:
-
-    <div class='console'>
-    Output sound data
-    <pre contenteditable="true"  style='white-space: pre;' id="output"></pre>
-    </div>
-
-Replace that block (or add the new input inside it) so it becomes:
-
--->
-<div class='console'>
-Output sound data
-    <div style='float:right'>
-        <!-- NEW: Export to WAV button (does not remove any existing buttons) -->
-        <input style='float:right' type="button" value="Export WAV" onclick='export_wav()'/>
-    </div>
-    <pre contenteditable="true"  style='white-space: pre;' id="output"></pre>
+    
+<div style='float:right'>
+    <!-- NEW: Export to WAV button (does not remove any existing buttons) -->
+    <input style='float:right' type="button" value="Export WAV" onclick='export_wav()'/>
 </div>
 
 <!--
