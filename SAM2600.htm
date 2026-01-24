@@ -1467,6 +1467,10 @@ Q   uh-oh (glottal stop)
 
             <div class='console'>
             Output sound data
+                <div style='float:right'>
+                    <!-- NEW: Export to WAV button (does not remove any existing buttons) -->
+                    <input style='float:right' type="button" value="Export WAV" onclick='export_wav()'/>
+                </div>
             <pre contenteditable="true"  style='white-space: pre;' id="output"></pre>
             </div>
     </div>
@@ -1474,10 +1478,6 @@ Q   uh-oh (glottal stop)
 </main>
 </div>
     
-<div style='float:right'>
-    <!-- NEW: Export to WAV button (does not remove any existing buttons) -->
-    <input style='float:right' type="button" value="Export WAV" onclick='export_wav()'/>
-</div>
 
 <!--
 Now add the JS helpers (place somewhere inside the existing <script> ... </script> section
