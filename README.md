@@ -1,5 +1,5 @@
 # SAM2600
-## A software speech synthesizer for the Atari 2600. Make your Atari 2600 talk! Sing! Say Tagalog words! Say rude words!
+## A software speech synthesizer for the Atari 2600. Make your Atari 2600 talk! Sing! Say rude words!
 
 Add voice to your own games and relive the glory days when computer speech had a charming personality and bounded intelligibility.
 
